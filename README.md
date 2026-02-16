@@ -3,26 +3,71 @@
 > Expert Mind Pack for Design System workflows powered by Brad Frost's Atomic Design methodology.
 > Research-grounded DNA from 22 published sources. 9 specialist experts. 52 commands.
 
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) (CLI) installed
+
+## Installation
+
+### Option 1: Slash Command (recommended)
+
+Clone this repo into your project's `.claude/commands/` directory:
+
+```bash
+cd your-project/
+mkdir -p .claude/commands
+git clone git@github.com:Redpine-Internal/design-system-5.0.git .claude/commands/design-system
+```
+
+Then in Claude Code, activate with:
+
+```
+/design-system:agents:design-system-v5
+```
+
+### Option 2: Direct activation
+
+Clone anywhere and paste the agent file content into Claude Code:
+
+```bash
+git clone git@github.com:Redpine-Internal/design-system-5.0.git
+```
+
+Then in Claude Code, copy-paste the content of `agents/design-system-v5.md` into your prompt.
+
+### Option 3: Add as submodule
+
+```bash
+cd your-project/
+git submodule add git@github.com:Redpine-Internal/design-system-5.0.git .claude/commands/design-system
+```
+
 ## Quick Start
 
+After installation, the agent greets you and awaits commands. Type `*help` to see all 52 available commands.
+
+**First run on an existing project:**
 ```
-@design-system
+*audit app/components/
 ```
 
-Brad will greet you and await commands. Type `*help` to see all available commands.
+**First run on a new project:**
+```
+*setup
+```
 
 ## Structure
 
 ```
-outputs/minds/brad-frost/
-├── agent/
-│   └── design-system-v5.md    # Complete agent definition (2150+ lines)
+design-system-5.0/
+├── agents/
+│   └── design-system-v5.md    # Complete agent definition (2610 lines)
 ├── tasks/                      # 46 executable task files
 ├── templates/                  # 11 output templates
 ├── checklists/                 # 7 validation checklists
 ├── data/                       # 14 reference data files
-├── analysis/                   # Source analysis artifacts
 ├── dna/                        # Extracted DNA files
+├── config.yaml                 # Squad configuration
 ├── README.md                   # This file
 ├── CHANGELOG.md                # Version history (v3.0 → v5.2.0)
 └── ARCHITECTURE.md             # System architecture
@@ -108,7 +153,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 | Metric | Score |
 |--------|-------|
-| QA After Creation | 10.0/10 |
-| Validate Squad | 8.75/10 (Grade A) |
+| Final Score | 10.0/10 EXCELLENT |
+| Failure Handling Coverage | 46/46 tasks (100%) |
 | Fidelity Score | 100% ELITE (40/40 checkpoints) |
 | Smoke Test Routing | PASS (9/9 experts, 19/19 triggers) |

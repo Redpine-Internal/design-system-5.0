@@ -1,51 +1,45 @@
-# Synkra AIOS - Framework Universal de Agentes IA para Desenvolvimento Full Stack
+# Brad Frost — Design System Architect v5.2.0
 
-[![Licenca: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![NPM](https://img.shields.io/npm/v/aios-core.svg)](https://www.npmjs.com/package/aios-core)
-
-O **Synkra AIOS** (AI-Orchestrated System) e um meta-framework que orquestra agentes de IA especializados para desenvolvimento de software completo — do planejamento ao deploy. Combina duas inovacoes: **Desenvolvimento Agil Dirigido por Agentes** e **Clonagem de Mentes Especialistas** (Squad Creator).
+> Agente IA especialista em Design Systems baseado na metodologia Atomic Design de Brad Frost.
+> DNA extraido de 22 fontes publicadas. 9 especialistas consultaveis. 52 comandos. 46 tasks executaveis.
 
 ---
 
 ## Indice
 
-- [O Que Faz](#o-que-faz)
+- [O Que E](#o-que-e)
 - [Beneficios](#beneficios)
-- [Arquitetura](#arquitetura)
-- [Pre-requisitos](#pre-requisitos)
 - [Instalacao](#instalacao)
 - [Inicio Rapido](#inicio-rapido)
-- [Sistema de Agentes](#sistema-de-agentes)
-- [Comandos por Agente](#comandos-por-agente)
-- [Workflows Principais](#workflows-principais)
-- [Squad Creator — Clonagem de Mentes](#squad-creator--clonagem-de-mentes)
+- [Workflows](#workflows)
+- [Comandos Completos](#comandos-completos)
+- [Sistema de Especialistas (9 Experts)](#sistema-de-especialistas-9-experts)
+- [Arquitetura DNA](#arquitetura-dna)
+- [Sistema de Pattern IDs](#sistema-de-pattern-ids)
 - [Estrutura de Diretorios](#estrutura-de-diretorios)
-- [Principios Constitucionais](#principios-constitucionais)
-- [IDEs Compatíveis](#ides-compativeis)
-- [Configuracao](#configuracao)
-- [Contribuicao](#contribuicao)
+- [Tasks Disponiveis (46)](#tasks-disponiveis-46)
+- [Templates (11)](#templates-11)
+- [Checklists (7)](#checklists-7)
+- [Dados de Referencia (14)](#dados-de-referencia-14)
+- [Scores de Validacao](#scores-de-validacao)
+- [Historico de Versoes](#historico-de-versoes)
 - [Licenca](#licenca)
 
 ---
 
-## O Que Faz
+## O Que E
 
-O Synkra AIOS transforma o desenvolvimento de software em um processo orquestrado por agentes de IA, cada um com persona, autoridade e escopo definidos.
+O **Brad Frost Design System Agent** e um Expert Mind Pack — um agente IA auto-contido que opera como consultor de design systems, incorporando o conhecimento e a forma de pensar de Brad Frost e mais 8 especialistas de elite.
 
-### Inovacao 1: Planejamento Agentico
+Diferente de um chatbot generico, este agente possui:
 
-Agentes dedicados (`@analyst`, `@pm`, `@architect`) colaboram para criar documentos de PRD e Arquitetura detalhados. Atraves de engenharia avancada de prompts e refinamento human-in-the-loop, produzem especificacoes que vao alem da geracao generica de tarefas.
+- **Voice DNA** — Vocabulario, tom, expressoes e metaforas extraidos das obras publicadas de Brad Frost
+- **Thinking DNA** — Frameworks mentais, heuristicas de decisao, regras de veto e padroes de reconhecimento baseados no Atomic Design
+- **Expert Routing** — 9 especialistas consultaveis via comando `*ask`, cada um com DNA proprio extraido de fontes reais
+- **46 Tasks Executaveis** — Workflows completos para auditoria, construcao, migracao, acessibilidade e governanca de design systems
+- **Failure Handling** — 100% das tasks possuem tratamento de falhas com cenarios domain-specific
 
-### Inovacao 2: Desenvolvimento Contextualizado
-
-O agente `@sm` (Scrum Master) transforma planos em historias de desenvolvimento hiperdetalhadas contendo tudo que o `@dev` precisa — contexto completo, detalhes de implementacao e orientacao arquitetural incorporada diretamente nos arquivos de historia.
-
-### Inovacao 3: Clonagem de Mentes (Squad Creator)
-
-Sistema para criar squads de agentes IA baseados em **mentes reais** — autores, especialistas e profissionais com frameworks documentados. Extrai Voice DNA (vocabulario, tom, historias) e Thinking DNA (frameworks, heuristicas, decisoes) para gerar agentes com 85-97% de fidelidade ao especialista original.
-
-**Resultado:** Elimina inconsistencia de planejamento e perda de contexto — os dois maiores problemas no desenvolvimento assistido por IA.
+O agente funciona dentro do ecossistema **Synkra AIOS** e pode ser ativado em IDEs como Claude Code, Cursor e Gemini CLI.
 
 ---
 
@@ -53,564 +47,617 @@ Sistema para criar squads de agentes IA baseados em **mentes reais** — autores
 
 | Beneficio | Descricao |
 |-----------|-----------|
-| **Equipe IA completa** | 12 agentes especializados (dev, qa, architect, pm, po, sm, analyst, devops, data-engineer, ux-expert, squad-creator, aios-master) |
-| **Qualidade garantida** | Quality gates automaticos em cada fase — lint, typecheck, testes, CodeRabbit |
-| **Separacao de autoridade** | Cada agente tem escopo exclusivo. So `@devops` faz push. So `@architect` decide arquitetura |
-| **Story-driven** | Todo codigo comeca com uma historia validada com acceptance criteria claros |
-| **Expertise sob demanda** | Clone mentes de especialistas reais (60+ ja clonados) para qualquer dominio |
-| **Multi-IDE** | Funciona com Claude Code, Cursor, Gemini CLI e VS Code |
-| **Zero invencao** | Specs derivam de requisitos, nunca inventam features |
-| **Cost-efficient** | Worker scripts em Python para operacoes deterministicas (zero custo LLM) |
-| **Escalavel** | 31+ squads, 206+ agentes, 100.000+ linhas de codigo geradas em producao |
-
----
-
-## Arquitetura
-
-### Hierarquia CLI First
-
-```
-CLI (Maxima) → Observability (Secundaria) → UI (Terciaria)
-```
-
-- A CLI e a fonte da verdade — dashboards apenas observam
-- Funcionalidades novas devem funcionar 100% via CLI antes de ter UI
-- A UI nunca e requisito para operacao do sistema
-
-### Fluxo de Desenvolvimento
-
-```
-[PRD + Arquitetura]
-        |
-   @sm (Fragmenta em Stories)
-        |
-   @po (Valida — checklist 10 pontos)
-        |
-   @dev (Implementa)
-        |
-   @qa (Quality Gate — 7 verificacoes)
-        |
-   @devops (Push — autoridade exclusiva)
-        |
-   GitHub
-```
-
-### Fluxo de Criacao de Squads
-
-```
-Usuario: "Preciso de um squad para {dominio}"
-        |
-   @squad-chief (Pesquisa mentes de elite)
-        |
-   @oalanicolas (Extrai Voice DNA + Thinking DNA)
-        |
-   @pedro-valerio (Valida processo)
-        |
-   Gera Agentes + Smoke Tests (3 obrigatorios)
-        |
-   Squad Pronto
-```
-
----
-
-## Pre-requisitos
-
-- **Node.js** >= 18.0.0 (v20+ recomendado)
-- **npm** >= 9.0.0
-- **Git**
-- **GitHub CLI** (opcional, para colaboracao em equipe)
+| **Auditoria automatizada** | Escaneia codebases existentes, identifica redundancias de padroes e gera inventario completo |
+| **Atomic Design nativo** | Toda construcao segue a hierarquia Atoms → Molecules → Organisms → Templates → Pages |
+| **Design Tokens DTCG** | Extracao e geracao de tokens no formato W3C DTCG v1.0 (stable) |
+| **9 especialistas sob demanda** | Consulte Nathan Curtis (tokens), Dan Mall (ROI), Jina Anne (W3C), Dave Malouf (DesignOps) e mais |
+| **WCAG 2.2 compliance** | Pipeline completo de acessibilidade: audit, contrast matrix, focus order, ARIA |
+| **ROI para stakeholders** | Calculo de ROI do investimento em design system + relatorio visual (shock report) |
+| **Multi-framework** | Suporte a React, Vue, Angular, Web Components, Svelte |
+| **Multi-brand/temas** | Arquitetura de tokens para multiplas marcas e temas (light/dark/etc.) |
+| **Governanca** | Regras de contribuicao, versionamento, deprecacao e ownership de componentes |
+| **Agentic-ready** | Avaliacao e setup de infraestrutura de DS preparada para consumo por agentes IA |
+| **Fidelidade 100%** | Score ELITE em validacao de fidelidade (40/40 checkpoints) |
 
 ---
 
 ## Instalacao
 
-### Opcao 1: Instalador NPX (Recomendado)
+### Opcao 1: Slash Command (Recomendado)
+
+Se voce ja tem o Synkra AIOS instalado:
 
 ```bash
-npx @synkra/aios-core@latest install
+# O squad ja esta disponivel como slash command
+@design-system
 ```
 
-O wizard interativo vai perguntar:
-- Quais squads instalar (hybrid-ops, expansion-creator, etc.)
-- Quais IDEs configurar (Claude Code, Cursor, Gemini)
-- Preferencias de sharding (single vs multi-file)
+### Opcao 2: Copia Direta
 
-### Opcao 2: Clone do Repositorio
+Copie a pasta para dentro do seu projeto:
 
 ```bash
-git clone https://github.com/SynkraAI/aios-core.git
-cd aios-core
-npm install
+cp -r brad-frost/ seu-projeto/.aios-core/squads/brad-frost/
 ```
 
-### Opcao 3: Submodulo Git
+### Opcao 3: Git Submodule
 
 ```bash
-git submodule add https://github.com/SynkraAI/aios-core.git aios-core
+git submodule add git@github.com:Redpine-Internal/design-system-5.0.git squads/brad-frost
 ```
 
-### Atualizacao
+### Pre-requisitos
 
-```bash
-npx github:SynkraAI/aios-core install
-```
-
-Detecta automaticamente a instalacao existente e atualiza apenas arquivos modificados (com backup `.bak`).
+- **Synkra AIOS** instalado (`npx @synkra/aios-core@latest install`)
+- **IDE compativel**: Claude Code, Cursor, Gemini CLI ou Codex CLI
+- **Node.js** >= 18.0.0 (para tasks que geram codigo)
 
 ---
 
 ## Inicio Rapido
 
-### 1. Ativar um agente
+### 1. Ativar o agente
 
 ```
-@dev
+@design-system
+```
+
+Brad vai cumprimentar e aguardar comandos.
+
+### 2. Ver comandos disponiveis
+
+```
 *help
 ```
 
-### 2. Criar uma historia
+### 3. Auditar um projeto existente (Brownfield)
 
 ```
-@sm
-*create-story
+*audit src/components
 ```
 
-### 3. Implementar
+### 4. Gerar relatorio para stakeholders
 
 ```
-@dev
-*develop "Story 1.1"
+*shock-report
 ```
 
-### 4. Validar qualidade
+### 5. Calcular ROI do design system
 
 ```
-@qa
-*qa-gate "Story 1.1"
+*calculate-roi
 ```
 
-### 5. Fazer push
+### 6. Construir um componente
 
 ```
-@devops
-*pre-push
+*build Button
 ```
 
 ---
 
-## Sistema de Agentes
+## Workflows
 
-### Agentes AIOS Core (12)
+### Brownfield (Projeto Existente) — Mais Comum
 
-| Agente | Persona | Funcao | Autoridade Exclusiva |
-|--------|---------|--------|----------------------|
-| `@aios-master` | — | Meta-orquestrador, governanca do framework | Override de qualquer agente |
-| `@dev` | Dex | Implementacao de codigo | git add, git commit (local) |
-| `@qa` | Quinn | Testes e qualidade | Vereditos de qualidade |
-| `@architect` | Aria | Arquitetura e design tecnico | Decisoes arquiteturais |
-| `@pm` | Morgan | Product Management, epics | Epics, PRD |
-| `@po` | Pax | Product Owner, backlog | Validacao de stories |
-| `@sm` | River | Scrum Master, stories | Criacao de stories |
-| `@analyst` | Alex | Pesquisa e analise de negocios | — |
-| `@devops` | Gage | CI/CD, git push, PRs, releases | **git push, PR, release, MCP** |
-| `@data-engineer` | Dara | Database design, schema, migrations | Schema DDL |
-| `@ux-design-expert` | Uma | UX/UI design | — |
-| `@squad-creator` | — | Criacao e gestao de squads | — |
-
-### Agentes Squad Creator (3)
-
-| Agente | Funcao |
-|--------|--------|
-| `@squad-chief` | Orquestrador, triagem, roteamento, extracao de SOP |
-| `@oalanicolas` | Clonagem de mentes (46 checkpoints de decisao) |
-| `@pedro-valerio` | Design de processos (condicoes de veto) |
-
-### Ativacao
+Pipeline completo para auditar e migrar codebases existentes:
 
 ```
-@nome-do-agente     # Ativa o agente
-*help               # Lista comandos disponiveis
-*exit               # Sai do modo agente
+*audit src/           → Inventario de padroes e redundancias
+    ↓
+*consolidate          → Mapa de reducao (merge padroes similares)
+    ↓
+*tokenize             → Extracao de design tokens (SSOT)
+    ↓
+*migrate              → Plano de migracao em 4 fases
+    ↓
+*build {component}    → Componentes production-ready
+    ↓
+*compose {molecule}   → Composicao de moleculas/organismos
+```
+
+### Greenfield (Projeto Novo)
+
+```
+*setup                → Setup inicial do design system
+    ↓
+*build {component}    → Construir atomos e componentes
+    ↓
+*compose {molecule}   → Compor moleculas a partir de atomos
+    ↓
+*document             → Gerar documentacao completa
+```
+
+### Refactoring
+
+```
+*refactor-plan        → Analise de candidatos a refatoracao
+    ↓
+*refactor-execute     → Decomposicao de componentes monoliticos
+```
+
+### Acessibilidade (WCAG 2.2)
+
+```
+*a11y-audit src/      → Auditoria completa WCAG 2.2
+    ↓
+*contrast-matrix      → Matriz de contraste (WCAG + APCA)
+    ↓
+*focus-order          → Auditoria de ordem de foco
+    ↓
+*aria-audit           → Auditoria de atributos ARIA
+```
+
+### Audit-Only (Relatorio Executivo)
+
+```
+*audit src/           → Escanear codebase
+    ↓
+*shock-report         → Relatorio visual HTML para stakeholders
+    ↓
+*calculate-roi        → Calculo de ROI do investimento
+```
+
+### Metricas de Saude do DS
+
+```
+*ds-health            → Dashboard de metricas
+    ↓
+*bundle-audit         → Auditoria de bundle size
+    ↓
+*token-usage          → Analytics de uso de tokens
+    ↓
+*dead-code            → Deteccao de codigo morto
+```
+
+### Agentic DS (DS + IA)
+
+```
+*agentic-audit src/   → Avaliar machine-readability do DS
+    ↓
+*agentic-setup        → Setup de infraestrutura DS para agentes IA
+```
+
+### W3C Design Tokens (DTCG v1.0)
+
+```
+*token-w3c            → Extracao no formato W3C DTCG stable
+    ↓
+*token-modes          → Configuracao de modos (light/dark/etc.)
 ```
 
 ---
 
-## Comandos por Agente
+## Comandos Completos
 
-### @dev (Implementacao)
-
-| Comando | Descricao |
-|---------|-----------|
-| `*develop` | Implementar historia (modo interativo) |
-| `*develop-yolo` | Modo autonomo (0-1 prompts) |
-| `*develop-preflight` | Modo plan-first (10-30 prompts) |
-| `*update-story` | Atualizar progresso da historia |
-| `*complete-task` | Marcar tarefa como completa |
-
-### @qa (Qualidade)
+### Auditoria e Analise
 
 | Comando | Descricao |
 |---------|-----------|
-| `*qa-gate` | Executar quality gate (7 verificacoes) |
-| `*validate-story` | Validar implementacao |
-| `*qa-loop {storyId}` | Ciclo iterativo review-fix (max 5) |
-| `*stop-qa-loop` | Pausar e salvar estado |
-| `*escalate-qa-loop` | Forcar escalacao manual |
+| `*audit {path}` | Escanear codebase para redundancia de padroes |
+| `*ds-health` | Dashboard de metricas de saude do DS |
+| `*bundle-audit` | Auditoria de tamanho de bundle |
+| `*token-usage` | Analytics de uso de design tokens |
+| `*dead-code` | Deteccao de codigo morto no DS |
+| `*shock-report` | Relatorio visual HTML para stakeholders |
+| `*calculate-roi` | Calculo de ROI do investimento em DS |
+| `*design-compare` | Comparar design vs implementacao |
+| `*scan-artifact` | Escanear artefatos de design |
+| `*audit-reading` | Auditoria de experiencia de leitura |
+| `*audit-tailwind` | Auditoria de configuracao Tailwind |
 
-### @sm (Scrum Master)
-
-| Comando | Descricao |
-|---------|-----------|
-| `*draft` / `*create-story` | Criar historias a partir do PRD |
-| `*fragment-prd` | Fragmentar PRD inteiro em historias |
-| `*split-story` | Dividir historia grande |
-
-### @po (Product Owner)
+### Construcao e Composicao
 
 | Comando | Descricao |
 |---------|-----------|
-| `*validate-story-draft` | Validacao com checklist de 10 pontos |
-| `*prioritize-backlog` | Priorizar historias no backlog |
+| `*build {component}` | Construir componente React production-ready |
+| `*compose {molecule}` | Compor molecula a partir de atomos existentes |
+| `*extend {pattern}` | Estender padrao existente |
+| `*setup` | Setup inicial do design system |
+| `*bootstrap-shadcn` | Bootstrap com biblioteca shadcn/ui |
+| `*fluent-build` | Construir componente no padrao Fluent 2 |
 
-### @pm (Product Manager)
-
-| Comando | Descricao |
-|---------|-----------|
-| `*create-epic` | Criar epic |
-| `*execute-epic` | Executar epic |
-
-### @devops (Infraestrutura)
+### Design Tokens
 
 | Comando | Descricao |
 |---------|-----------|
-| `*pre-push` | Quality gates + git push |
-| `*create-pr` | Criar Pull Request |
-| `*detect-repo` | Informacoes do repositorio |
-| `*search-mcp` | Buscar no catalogo MCP |
-| `*add-mcp` | Adicionar servidor MCP |
-| `*list-mcps` | Listar MCPs habilitados |
+| `*tokenize` | Extrair design tokens para YAML/JSON/CSS |
+| `*token-w3c` | Extracao no formato W3C DTCG v1.0 |
+| `*token-modes` | Configurar modos de token (light/dark) |
+| `*export-dtcg` | Exportar tokens no formato DTCG |
+| `*theme-multi` | Arquitetura multi-brand/multi-tema |
 
-### @architect (Arquitetura)
-
-| Comando | Descricao |
-|---------|-----------|
-| Decisoes de arquitetura | Design de sistema |
-| Selecao de tecnologia | Avaliacao de stack |
-| Avaliacao de complexidade | Dimensionamento |
-
-### @squad-creator (Squads)
+### Migracao e Refactoring
 
 | Comando | Descricao |
 |---------|-----------|
-| `*create-squad` | Criacao completa de squad |
-| `*clone-mind {nome}` | Clonar especialista especifico |
-| `*validate-squad {nome}` | Validar squad (9 fases) |
-| `*extract-sop` | Extrair SOP de transcricao |
-| `*discover-tools {dominio}` | Descoberta profunda de ferramentas |
-| `*refresh-registry` | Atualizar registro de squads |
-| `*quality-dashboard` | Exibir metricas |
+| `*migrate` | Gerar plano de migracao em 4 fases |
+| `*consolidate` | Consolidar padroes redundantes |
+| `*refactor-plan` | Analisar candidatos a refatoracao |
+| `*refactor-execute` | Executar decomposicao atomica |
+| `*rebuild-artifact` | Reconstruir artefato de design |
+| `*tailwind-upgrade` | Upgrade de configuracao Tailwind |
+
+### Acessibilidade
+
+| Comando | Descricao |
+|---------|-----------|
+| `*a11y-audit {path}` | Auditoria WCAG 2.2 completa |
+| `*contrast-matrix {path}` | Matriz de contraste (WCAG + APCA) |
+| `*focus-order` | Auditoria de ordem de foco |
+| `*aria-audit` | Auditoria de atributos ARIA |
+
+### Documentacao e Governanca
+
+| Comando | Descricao |
+|---------|-----------|
+| `*document` | Gerar documentacao completa do DS |
+| `*create-doc` | Criar documento especifico |
+| `*ds-govern` | Configurar governanca do DS |
+| `*checklist {name}` | Executar checklist de validacao |
+| `*validate-fidelity` | Validar fidelidade design vs codigo |
+
+### Integracao e Multi-Framework
+
+| Comando | Descricao |
+|---------|-----------|
+| `*multi-framework` | Gerar componentes para multiplos frameworks |
+| `*integrate-squad` | Integrar com outros squads do ecossistema |
+| `*figma-pipeline` | Pipeline de sincronizacao Figma → Codigo |
+| `*fluent-audit` | Auditoria de conformidade Fluent 2 |
+
+### Agentic DS
+
+| Comando | Descricao |
+|---------|-----------|
+| `*agentic-audit {path}` | Avaliar machine-readability do DS para IA |
+| `*agentic-setup` | Setup de infraestrutura DS para agentes IA |
+
+### DesignOps
+
+| Comando | Descricao |
+|---------|-----------|
+| `*designops` | Avaliar operacoes de design |
+| `*designops-assess` | Assessment de maturidade DesignOps |
+| `*designops-maturity` | Nivel de maturidade da operacao |
+
+### Qualidade e Disciplina
+
+| Comando | Descricao |
+|---------|-----------|
+| `*quality-gate` | Gate de qualidade (Dieter Rams 10 Principles) |
+| `*reduce` | Reducao de complexidade visual |
+| `*constrain` | Aplicar restricoes de tokens (Vignelli) |
+| `*token-discipline` | Diagnostico de disciplina de tokens |
+| `*motion-audit` | Auditoria de motion/animacao |
+| `*visual-test` | Testes de regressao visual |
+
+### Utilitarios
+
+| Comando | Descricao |
+|---------|-----------|
+| `*ask {expert} "{pergunta}"` | Consultar especialista especifico |
+| `*experts` | Listar especialistas disponiveis |
+| `*yolo` | Alternar modo de execucao paralela |
+| `*help` | Lista completa de 52 comandos |
 
 ---
 
-## Workflows Principais
+## Sistema de Especialistas (9 Experts)
 
-### 1. Story Development Cycle (SDC)
+O agente possui 9 especialistas consultaveis via `*ask {expert} "{pergunta}"`. Cada um tem DNA proprio extraido de fontes reais.
 
-O workflow primario para todo desenvolvimento:
+### Tier 1 (Especialistas Primarios)
 
-| Fase | Agente | Task | Saida |
-|------|--------|------|-------|
-| 1. Criar | @sm | `create-next-story.md` | Historia criada (Draft) |
-| 2. Validar | @po | `validate-next-story.md` | GO/NO-GO (checklist 10 pontos) |
-| 3. Implementar | @dev | `dev-develop-story.md` | Codigo implementado |
-| 4. QA Gate | @qa | `qa-gate.md` | PASS/CONCERNS/FAIL/WAIVED |
+| Especialista | Dominio | Triggers Automaticos | Fonte |
+|--------------|---------|----------------------|-------|
+| **Brad Frost** | Atomic Design, audit, refactoring | `*audit`, `*build`, `*compose`, `*refactor-*` | bradfrost.com, Smashing Magazine, conferencias |
+| **Nathan Curtis** | Sistemas de tokens, documentacao, governanca | `*tokenize`, `*document`, `*ds-govern` | EightShapes, Medium articles |
+| **Dan Mall** | Estrategia de DS, ROI, adocao | `*calculate-roi`, `*shock-report` | SuperFriendly, Design System University |
+| **Jina Anne** | Arquitetura de tokens, W3C DTCG | `*token-w3c`, `*token-modes`, `*theme-multi` | W3C DTCG spec, conferencias |
+| **Kaelig Deloumeau-Prigent** | Tokens multi-plataforma, tooling | `*export-dtcg` | Salesforce, ex-Guardian |
+| **Dave Malouf** | DesignOps, operacoes de time | `*designops`, `*designops-assess`, `*designops-maturity` | IxDA, DesignOps Summit |
 
-### 2. QA Loop (Review Iterativo)
+### Tier 2 (Especialistas Secundarios)
+
+| Especialista | Dominio | Triggers Automaticos |
+|--------------|---------|----------------------|
+| **Val Head** | Motion e animacao | `*motion-audit` |
+| **Steve Kinney** | Testes visuais, Storybook | `*visual-test` |
+| **Dieter Rams** | Qualidade por reducao (10 Principios) | `*quality-gate`, `*reduce` |
+| **Massimo Vignelli** | Disciplina de tokens, restricoes | `*constrain`, `*token-discipline` |
+
+### Como Consultar
 
 ```
-@qa review → veredito → @dev corrige → re-review (max 5 iteracoes)
+# Consulta direta
+*ask nathan-curtis "Qual a melhor estrutura de tokens para multi-brand?"
+
+# Consulta cruzada (Brad sintetiza respostas de multiplos experts)
+*ask brad "Compare as abordagens de Nathan Curtis e Jina Anne para tokens"
+
+# Auto-routing (o comando ja direciona para o especialista correto)
+*motion-audit    → Val Head responde automaticamente
+*calculate-roi   → Dan Mall responde automaticamente
+*designops       → Dave Malouf responde automaticamente
 ```
-
-Vereditos: `APPROVE` (concluir) | `REJECT` (corrigir) | `BLOCKED` (escalar)
-
-### 3. Spec Pipeline (Pre-implementacao)
-
-Transforma requisitos informais em especificacao executavel:
-
-| Fase | Agente | Saida |
-|------|--------|-------|
-| 1. Coletar | @pm | `requirements.json` |
-| 2. Avaliar | @architect | `complexity.json` |
-| 3. Pesquisar | @analyst | `research.json` |
-| 4. Escrever Spec | @pm | `spec.md` |
-| 5. Criticar | @qa | `critique.json` |
-| 6. Planejar | @architect | `implementation.yaml` |
-
-### 4. Brownfield Discovery (Avaliacao de Legado)
-
-Avaliacao tecnica de debito tecnico em 10 fases para codebases existentes.
 
 ---
 
-## Squad Creator — Clonagem de Mentes
+## Arquitetura DNA
 
-O Squad Creator permite criar equipes de agentes IA baseados em especialistas reais.
+O agente contem DNA extraido por pesquisa das obras publicadas de Brad Frost:
 
-### Como Funciona
+### Voice DNA
 
-1. **Coleta de fontes** — Livros, transcricoes, artigos, videos, posts em redes sociais
-2. **Extracao de Voice DNA** — Vocabulario, tom, expressoes, historias do especialista
-3. **Extracao de Thinking DNA** — Frameworks mentais, heuristicas, padroes de decisao
-4. **Geracao de agentes** — Agente IA com 85-97% de fidelidade ao original
-5. **Smoke tests** — 3 testes obrigatorios (conhecimento, decisao, objecoes)
-6. **Validacao** — 9 fases de validacao de qualidade
+| Componente | Descricao |
+|------------|-----------|
+| **Identidade** | Persona, tom base, posicionamento |
+| **Vocabulario** | 15 power words usadas frequentemente |
+| **Frases assinatura** | 12 expressoes caracteristicas |
+| **Metaforas** | 4 categorias de metaforas recorrentes |
+| **Dimensoes de tom** | 7 dimensoes calibradas |
+| **Anti-padroes** | Coisas que Brad nunca diria |
+| **Sistema imunologico** | Deteccao de respostas inautenticas |
+| **Contradicoes de voz** | Nuances e tensoes no discurso |
 
-### Estatisticas de Producao
+### Thinking DNA
 
-| Metrica | Valor |
-|---------|-------|
-| Squads criados | 31+ |
-| Agentes deployados | 206+ |
-| Mentes clonadas | 60+ |
-| Linhas de codigo | 100.000+ |
-| Maior squad | `copy` (25 copywriters, 32.049 linhas) |
+| Componente | Descricao |
+|------------|-----------|
+| **Atomic Design** | 5 estagios (Atoms → Pages) com regras de composicao |
+| **Frameworks secundarios** | 3 frameworks complementares ao Atomic Design |
+| **Framework diagnostico** | 6 red flags + 7 green flags para avaliar DS |
+| **Heuristicas de decisao** | 6 heuristicas calibradas (BF_DH_001 a 006) |
+| **Regras de veto** | 13 condicoes que bloqueiam decisoes (BF_VT_001 a 013) |
+| **Padroes de reconhecimento** | Instant detection de problemas comuns |
+| **Tratamento de objecoes** | Respostas para objecoes tipicas sobre DS |
 
-### Exemplo: Criar um Squad
+### Fontes
 
-```
-@squad-creator
-*create-squad
+bradfrost.com, Smashing Magazine, Design Better Podcast, conferencias (2019-2025), e obras publicadas de cada especialista do Tier 1 e Tier 2.
 
-# Ou clonar uma mente especifica
-*clone-mind "Alex Hormozi"
-```
+---
 
-### Fontes Suportadas
+## Sistema de Pattern IDs
 
-- Livros (PDF, EPUB)
-- Transcricoes (reunioes, podcasts)
-- Artigos (web, markdown)
-- Videos (transcricoes do YouTube)
-- Redes sociais (Twitter, LinkedIn)
+Todas as heuristicas usam o prefixo `BF_` para rastreabilidade:
+
+| Categoria | IDs | Quantidade | Uso |
+|-----------|-----|------------|-----|
+| **Red Flags** | BF_RF_001 → 006 | 6 | Sinais de problema no DS |
+| **Green Flags** | BF_GF_001 → 007 | 7 | Sinais de saude no DS |
+| **Decision Heuristics** | BF_DH_001 → 006 | 6 | Regras para tomar decisoes |
+| **Veto Rules** | BF_VT_001 → 013 | 13 | Condicoes que bloqueiam acoes |
+| **Instant Detection** | BF_ID_001 → 005 | 5 | Reconhecimento imediato de padroes |
+| **Blind Spots** | BF_BS_001 → 008 | 8 | Pontos cegos conhecidos |
+
+**Total: 45+ pattern IDs rastreaveis**
 
 ---
 
 ## Estrutura de Diretorios
 
 ```
-melhoriadosystemdesign/
-├── .aios-core/                    # Core do Framework (v4.31.1)
-│   ├── constitution.md            # Principios inegociaveis
-│   ├── user-guide.md              # Manual completo (1.410 linhas)
-│   ├── core-config.yaml           # Configuracao do framework
-│   ├── development/
-│   │   ├── agents/                # 12 agentes (dev, qa, architect, etc.)
-│   │   ├── tasks/                 # 45+ tasks executaveis
-│   │   ├── templates/             # Templates de documentos e codigo
-│   │   ├── checklists/            # Gates de validacao
-│   │   └── scripts/               # Scripts de automacao
-│   ├── core/                      # Modulos principais
-│   ├── data/                      # Knowledge bases
-│   ├── product/                   # Gestao de produto
-│   └── infrastructure/            # CI/CD, integracoes
+brad-frost/
+├── agent/
+│   └── design-system-v5.md         # Definicao completa do agente (2150+ linhas)
 │
-├── squad/                         # Squad Creator Expansion (v3.0.0)
-│   ├── agents/                    # 3 agentes especializados
-│   ├── tasks/                     # 30+ tasks de criacao de squads
-│   ├── workflows/                 # 11 workflows multi-fase
-│   ├── minds/                     # Mentes clonadas
-│   ├── data/                      # Registro de ferramentas, frameworks
-│   ├── templates/                 # Templates de squad
-│   ├── checklists/                # Quality gates
-│   └── scripts/                   # Workers Python (zero custo LLM)
+├── agents/                          # Agentes auxiliares (especialistas)
 │
-├── outputs/                       # Artefatos gerados
-│   └── minds/                     # DNAs extraidos
+├── tasks/                           # 46 tasks executaveis
+│   ├── a11y-audit.md
+│   ├── aria-audit.md
+│   ├── atomic-refactor-execute.md
+│   ├── atomic-refactor-plan.md
+│   ├── audit-reading-experience.md
+│   ├── audit-tailwind-config.md
+│   ├── bootstrap-shadcn-library.md
+│   ├── bundle-audit.md
+│   ├── contrast-matrix.md
+│   ├── create-doc.md
+│   ├── dead-code-detection.md
+│   ├── design-compare.md
+│   ├── ds-agentic-audit.md
+│   ├── ds-agentic-setup.md
+│   ├── ds-audit-codebase.md
+│   ├── ds-build-component.md
+│   ├── ds-calculate-roi.md
+│   ├── ds-compose-molecule.md
+│   ├── ds-consolidate-patterns.md
+│   ├── ds-designops.md
+│   ├── ds-extend-pattern.md
+│   ├── ds-extract-tokens.md
+│   ├── ds-figma-pipeline.md
+│   ├── ds-fluent-audit.md
+│   ├── ds-fluent-build.md
+│   ├── ds-generate-documentation.md
+│   ├── ds-generate-migration-strategy.md
+│   ├── ds-generate-shock-report.md
+│   ├── ds-governance.md
+│   ├── ds-health-metrics.md
+│   ├── ds-integrate-squad.md
+│   ├── ds-motion-audit.md
+│   ├── ds-multi-framework.md
+│   ├── ds-rebuild-artifact.md
+│   ├── ds-scan-artifact.md
+│   ├── ds-setup-design-system.md
+│   ├── ds-theme-multi-brand.md
+│   ├── ds-token-modes.md
+│   ├── ds-token-w3c-extract.md
+│   ├── ds-visual-regression.md
+│   ├── execute-checklist.md
+│   ├── export-design-tokens-dtcg.md
+│   ├── focus-order-audit.md
+│   ├── tailwind-upgrade.md
+│   ├── token-usage-analytics.md
+│   └── validate-design-fidelity.md
 │
-├── docs/                          # Documentacao
-│   └── research/                  # Saidas de pesquisa
+├── templates/                       # 11 templates de saida
+│   ├── component-visual-spec-tmpl.md
+│   ├── design-fidelity-report-tmpl.md
+│   ├── ds-artifact-analysis.md
+│   ├── ds-health-report-tmpl.md
+│   ├── ds-migration-strategy-tmpl.md
+│   ├── ds-state-persistence-tmpl.yaml
+│   ├── ds-tokens-schema-tmpl.yaml
+│   ├── migration-strategy-tmpl.md
+│   ├── reading-design-tokens.css
+│   ├── state-persistence-tmpl.yaml
+│   └── tokens-schema-tmpl.yaml
 │
-├── .claude/                       # Integracao Claude Code
-│   ├── rules/                     # Regras do projeto
-│   └── commands/                  # Comandos de agentes
+├── checklists/                      # 7 checklists de validacao
+│   ├── atomic-refactor-checklist.md
+│   ├── design-fidelity-checklist.md
+│   ├── ds-accessibility-wcag-checklist.md
+│   ├── ds-component-quality-checklist.md
+│   ├── ds-migration-readiness-checklist.md
+│   ├── ds-pattern-audit-checklist.md
+│   └── reading-accessibility-checklist.md
 │
-├── aios-core/                     # Core legado (sendo migrado)
-├── thoughts/                      # Design thinking
-└── AGENTS.md                      # Regras de ativacao de agentes
+├── data/                            # 14 arquivos de referencia
+│   ├── agentic-ds-principles.md
+│   ├── atomic-design-principles.md
+│   ├── atomic-refactor-rules.md
+│   ├── consolidation-algorithms.md
+│   ├── design-token-best-practices.md
+│   ├── design-tokens-spec.yaml
+│   ├── ds-reference-architectures.md
+│   ├── fluent2-design-principles.md
+│   ├── high-retention-reading-guide.md
+│   ├── integration-patterns.md
+│   ├── motion-tokens-guide.md
+│   ├── roi-calculation-guide.md
+│   ├── w3c-dtcg-spec-reference.md
+│   └── wcag-compliance-guide.md
+│
+├── analysis/                        # Artefatos de analise de fontes
+├── dna/                             # Arquivos DNA extraidos
+├── config.yaml                      # Configuracao do squad
+├── README.md                        # Este arquivo
+├── CHANGELOG.md                     # Historico de versoes (v3.0 → v5.2.0)
+└── ARCHITECTURE.md                  # Arquitetura do sistema
 ```
 
 ---
 
-## Principios Constitucionais
+## Tasks Disponiveis (46)
 
-O Synkra AIOS possui uma **Constitution formal** com principios inegociaveis:
+Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditions, Steps, Post-conditions, Success Criteria e Failure Handling.
 
-| Artigo | Principio | Severidade | Descricao |
-|--------|-----------|------------|-----------|
-| I | **CLI First** | NON-NEGOTIABLE | Toda funcionalidade deve funcionar 100% via CLI antes de UI |
-| II | **Agent Authority** | NON-NEGOTIABLE | Cada agente tem autoridades exclusivas que nao podem ser violadas |
-| III | **Story-Driven** | MUST | Todo desenvolvimento comeca e termina com uma historia |
-| IV | **No Invention** | MUST | Especificacoes derivam de requisitos, nunca inventam |
-| V | **Quality First** | MUST | lint, typecheck, testes — tudo deve passar |
-| VI | **Absolute Imports** | SHOULD | Sempre `@/` ao inves de `../../../` |
+### Por Categoria
 
-Violacoes de principios NON-NEGOTIABLE sao **bloqueadas automaticamente** por gates.
-
----
-
-## IDEs Compativeis
-
-| IDE | Ativacao | Formato |
-|-----|----------|---------|
-| **Claude Code** | `@agent-name` | `.claude/commands/` |
-| **Cursor** | `@agent-name` | `.cursor/rules/` |
-| **Gemini CLI** | `/agent-name` | `.gemini/` |
-| **VS Code** | Via extensoes | `.vscode/` |
-| **Codex CLI** | `/agent-name` | `.codex/` |
+| Categoria | Tasks | Quantidade |
+|-----------|-------|------------|
+| Auditoria | a11y-audit, aria-audit, audit-reading-experience, audit-tailwind-config, bundle-audit, dead-code-detection, ds-agentic-audit, ds-audit-codebase, ds-fluent-audit, ds-health-metrics, ds-motion-audit, ds-scan-artifact, ds-visual-regression, focus-order-audit, token-usage-analytics | 15 |
+| Construcao | bootstrap-shadcn-library, ds-build-component, ds-compose-molecule, ds-extend-pattern, ds-fluent-build, ds-rebuild-artifact, ds-setup-design-system | 7 |
+| Tokens | ds-extract-tokens, ds-token-modes, ds-token-w3c-extract, ds-theme-multi-brand, export-design-tokens-dtcg | 5 |
+| Migracao | atomic-refactor-execute, atomic-refactor-plan, ds-consolidate-patterns, ds-generate-migration-strategy, tailwind-upgrade | 5 |
+| Documentacao | create-doc, ds-generate-documentation, ds-generate-shock-report, ds-calculate-roi | 4 |
+| Integracao | ds-figma-pipeline, ds-integrate-squad, ds-multi-framework | 3 |
+| Governanca | ds-designops, ds-governance | 2 |
+| Agentic | ds-agentic-setup | 1 |
+| Validacao | contrast-matrix, design-compare, execute-checklist, validate-design-fidelity | 4 |
 
 ---
 
-## Configuracao
+## Templates (11)
 
-### Variaveis de Ambiente
-
-```bash
-# .env
-ANTHROPIC_API_KEY=       # API Anthropic (Claude)
-OPENAI_API_KEY=          # API OpenAI (opcional)
-OPENROUTER_API_KEY=      # Multi-model routing (opcional)
-DEEPSEEK_API_KEY=        # Modo claude-free (opcional)
-```
-
-### Arquivos de Configuracao
-
-| Arquivo | Funcao |
-|---------|--------|
-| `.aios-core/core-config.yaml` | Configuracao do framework |
-| `.aios-core/constitution.md` | Principios fundamentais |
-| `squad/config.yaml` | Configuracao do Squad Creator |
-| `.claude/CLAUDE.md` | Regras para Claude Code |
-| `AGENTS.md` | Regras de ativacao para Codex CLI |
-
-### Comandos Uteis
-
-```bash
-# Desenvolvimento
-npm run dev              # Iniciar desenvolvimento
-npm test                 # Rodar testes
-npm run lint             # Verificar estilo
-npm run typecheck        # Verificar tipos
-npm run build            # Build producao
-
-# Validacao
-npm run validate:structure    # Validar estrutura
-npm run validate:agents       # Validar agentes
-
-# Sincronizacao
-npm run sync:ide              # Sincronizar com IDEs
-npm run sync:skills:codex     # Sincronizar skills
-
-# Diagnostico
-npx aios-core doctor          # Diagnostico do sistema
-npx aios-core info            # Informacoes do sistema
-```
-
-### Debug
-
-```bash
-export AIOS_DEBUG=true
-tail -f .aios/logs/agent.log
-```
+| Template | Uso |
+|----------|-----|
+| `component-visual-spec-tmpl.md` | Especificacao visual de componente |
+| `design-fidelity-report-tmpl.md` | Relatorio de fidelidade design vs codigo |
+| `ds-artifact-analysis.md` | Analise de artefatos de design |
+| `ds-health-report-tmpl.md` | Relatorio de saude do DS |
+| `ds-migration-strategy-tmpl.md` | Estrategia de migracao |
+| `ds-state-persistence-tmpl.yaml` | Persistencia de estado entre sessoes |
+| `ds-tokens-schema-tmpl.yaml` | Schema de design tokens |
+| `migration-strategy-tmpl.md` | Template de migracao |
+| `reading-design-tokens.css` | Tokens CSS para experiencia de leitura |
+| `state-persistence-tmpl.yaml` | Template de persistencia de estado |
+| `tokens-schema-tmpl.yaml` | Schema de tokens |
 
 ---
 
-## Modos de Desenvolvimento
+## Checklists (7)
 
-O `@dev` suporta tres modos de implementacao:
+| Checklist | Verificacoes |
+|-----------|--------------|
+| `atomic-refactor-checklist.md` | Validacao de refatoracao atomica |
+| `design-fidelity-checklist.md` | Fidelidade design vs implementacao |
+| `ds-accessibility-wcag-checklist.md` | Conformidade WCAG 2.2 |
+| `ds-component-quality-checklist.md` | Qualidade de componentes |
+| `ds-migration-readiness-checklist.md` | Prontidao para migracao |
+| `ds-pattern-audit-checklist.md` | Auditoria de padroes |
+| `reading-accessibility-checklist.md` | Acessibilidade de leitura |
 
-| Modo | Prompts | Controle | Uso |
-|------|---------|----------|-----|
-| **Interactive** (padrao) | 5-10 | Colaborativo | Aprendizado, tarefas complexas |
-| **YOLO** | 0-1 | Autonomo | Tarefas simples, devs experientes |
-| **Pre-Flight** | 10-30 upfront | Maximo | Features criticas, requisitos ambiguos |
+---
+
+## Dados de Referencia (14)
+
+| Arquivo | Conteudo |
+|---------|----------|
+| `agentic-ds-principles.md` | Principios para DS consumivel por agentes IA |
+| `atomic-design-principles.md` | Principios do Atomic Design (Brad Frost) |
+| `atomic-refactor-rules.md` | Regras de refatoracao atomica |
+| `consolidation-algorithms.md` | Algoritmos de consolidacao de padroes |
+| `design-token-best-practices.md` | Melhores praticas de design tokens |
+| `design-tokens-spec.yaml` | Especificacao de tokens |
+| `ds-reference-architectures.md` | Arquiteturas de referencia de DS |
+| `fluent2-design-principles.md` | Principios Fluent 2 (Microsoft) |
+| `high-retention-reading-guide.md` | Guia de leitura de alta retencao |
+| `integration-patterns.md` | Padroes de integracao |
+| `motion-tokens-guide.md` | Guia de tokens de motion/animacao |
+| `roi-calculation-guide.md` | Guia de calculo de ROI |
+| `w3c-dtcg-spec-reference.md` | Referencia da spec W3C DTCG v1.0 |
+| `wcag-compliance-guide.md` | Guia de conformidade WCAG |
+
+---
+
+## Scores de Validacao
+
+| Metrica | Score | Significado |
+|---------|-------|-------------|
+| **QA After Creation** | 10.0/10 | Qualidade maxima pos-criacao |
+| **Validate Squad** | 10.0/10 EXCELLENT | Validacao completa (Phases 0-6) |
+| **Fidelity Score** | 100% ELITE (40/40) | Todos os checkpoints de fidelidade atendidos |
+| **Smoke Test Routing** | PASS (9/9, 19/19) | 9 experts, 19 triggers — todos funcionando |
+| **Failure Handling** | 46/46 (100%) | Todas as tasks com tratamento de falhas |
+
+### Progressao de Score
 
 ```
-@dev
-*develop "Story 1.1"           # Interactive (padrao)
-*develop-yolo "Story 1.1"     # Autonomo
-*develop-preflight "Story 1.1" # Plan-first
+v3.0: 5.51 → v4.0: 7.95 → v5.0: 9.26 → v5.0.1: 9.84 → v5.0.2: 9.92 → v5.2.0: 10.0
 ```
 
 ---
 
-## Quality Gates
+## Historico de Versoes
 
-### Pre-Push (Obrigatorio)
+| Versao | Mudancas Principais |
+|--------|---------------------|
+| **v5.2.0** | Dave Malouf (DesignOps) como Tier 1, 9 experts, 52 comandos, Failure Handling 100% |
+| **v5.1.0** | Dieter Rams + Massimo Vignelli (Tier 2), 7 novos vetos, 4 novos comandos |
+| **v5.0.2** | Fix contradicao a11y, 5 blind spots, 2 vetos adicionais |
+| **v5.0.1** | Pattern IDs (30 total), Expert Routing com 6 experts, comando `*ask` |
+| **v5.0.0** | DNA Fusion — Voice DNA + Thinking DNA de fontes primarias (22 citacoes) |
+| **v4.1.0** | Val Head + Steve Kinney (Tier 2), 7 mentes sintetizadas |
+| **v4.0.0** | DNA sintetizado de 5 mentes elite, Phase 11 (Agentic), Phase 12 (W3C) |
 
-Antes de qualquer push, todos os checks devem passar:
-
-```bash
-npm run lint        # ESLint
-npm run typecheck   # TypeScript
-npm test            # Jest
-npm run build       # Build
-```
-
-### QA Gate (7 Verificacoes)
-
-1. Code review — padroes, legibilidade, manutenibilidade
-2. Testes unitarios — cobertura adequada, todos passando
-3. Acceptance criteria — todos atendidos conforme a historia
-4. Sem regressoes — funcionalidade existente preservada
-5. Performance — dentro de limites aceitaveis
-6. Seguranca — OWASP basics verificados
-7. Documentacao — atualizada se necessario
-
-### Vereditos
-
-| Veredito | Significado |
-|----------|-------------|
-| **PASS** | Todos os checks OK |
-| **CONCERNS** | Aprovado com observacoes |
-| **FAIL** | Issues HIGH/CRITICAL, retorna para @dev |
-| **WAIVED** | Issues aceitos com waiver documentado |
-
----
-
-## Contribuicao
-
-1. Fork o repositorio
-2. Crie uma branch (`feat/minha-feature`)
-3. Siga os padroes de commit convencional (`feat:`, `fix:`, `docs:`, `chore:`)
-4. Garanta que lint, typecheck e testes passam
-5. Crie um Pull Request
-
-### Convencoes de Commit
-
-```
-feat: nova funcionalidade [Story X.Y]
-fix: correcao de bug [Story X.Y]
-docs: atualizacao de documentacao
-chore: manutencao
-refactor: refatoracao
-test: testes
-```
+Veja [CHANGELOG.md](CHANGELOG.md) para historico completo.
 
 ---
 
 ## Licenca
 
-MIT - Veja [LICENSE](LICENSE) para detalhes.
+MIT
 
 ---
 
-## Links
+## Repositorio
 
-- **Repositorio:** [github.com/SynkraAI/aios-core](https://github.com/SynkraAI/aios-core)
-- **NPM:** [@synkra/aios-core](https://www.npmjs.com/package/aios-core)
-- **Comunidade Discord:** [discord.gg/gk8jAdXWmj](https://discord.gg/gk8jAdXWmj)
-- **Documentacao:** [synkra.ai](https://synkra.ai)
+**GitHub:** [Redpine-Internal/design-system-5.0](https://github.com/Redpine-Internal/design-system-5.0)
 
 ---
 
-*Synkra AIOS — CLI First | Agent-Driven | Quality First*
+*Brad Frost Design System Agent v5.2.0 — Atomic Design | 9 Experts | 52 Commands | 46 Tasks | Score 10.0/10*

@@ -31,18 +31,21 @@ O script compara a versão local com a remota e só baixa se houver atualizaçã
 
 ```
 outputs/minds/brad-frost/
-├── agent/
-│   └── design-system-v5.md    # Complete agent definition (2150+ lines)
+├── agents/
+│   └── design-system-v5.md    # Agent definition completo (2150+ lines)
 ├── tasks/                      # 48 executable task files
 ├── templates/                  # 11 output templates
 ├── checklists/                 # 7 validation checklists
 ├── data/                       # 15 reference data files
 ├── analysis/                   # Source analysis artifacts
 ├── dna/                        # Extracted DNA files
+├── config.yaml                 # Squad metadata e registry de dependências
 ├── README.md                   # This file
 ├── CHANGELOG.md                # Version history (v3.0 → v5.2.1)
 └── ARCHITECTURE.md             # System architecture
 ```
+
+---
 
 ## Workflows
 
@@ -52,12 +55,166 @@ outputs/minds/brad-frost/
 | **Greenfield** | `*setup → *build → *compose → *document` | Start fresh with tokens |
 | **Refactoring** | `*refactor-plan → *refactor-execute` | Decompose monolithic components |
 | **Accessibility** | `*a11y-audit → *contrast-matrix → *focus-order → *aria-audit` | WCAG 2.2 compliance |
+| **EAA Compliance** | `*eaa-audit` | European Accessibility Act (EN 301 549) |
 | **Audit-Only** | `*audit → *shock-report → *calculate-roi` | Executive report + ROI |
 | **DS Metrics** | `*ds-health → *bundle-audit → *token-usage → *dead-code` | Health dashboard |
-| **Agentic DS** | `*agentic-audit → *agentic-setup` | AI-ready DS infrastructure |
-| **W3C Tokens** | `*token-w3c → *token-modes` | DTCG v1.0 stable format |
 | **Performance** | `*perf-budget` | Performance budgets por nível atômico |
-| **EAA Compliance** | `*eaa-audit` | European Accessibility Act (EN 301 549) |
+| **Agentic DS** | `*agentic-audit → *agentic-setup` | AI-ready DS infrastructure |
+| **W3C Tokens** | `*token-w3c → *token-modes → *export-dtcg` | DTCG v1.0 stable format + Display P3 |
+| **Theming** | `*theme-multi` | Multi-brand token layer architecture |
+| **Fluent 2** | `*fluent-audit → *fluent-build` | Microsoft Fluent 2 design system |
+| **Motion** | `*motion-audit` | Animation tokens + reduced-motion |
+| **Visual Testing** | `*visual-test` | Automated visual regression testing |
+| **Multi-framework** | `*multi-framework` | Web Components strategy |
+| **Figma Pipeline** | `*figma-pipeline` | Figma-to-code via MCP Server |
+| **Governance** | `*ds-govern` | DS governance model setup |
+| **DesignOps** | `*designops` | Team operations workflow |
+| **Reading UX** | `*reading-audit` | Typography + reading experience audit |
+
+---
+
+## All 48 Tasks
+
+### Audit & Analysis
+
+| Task | File | Description |
+|------|------|-------------|
+| `*audit` | `ds-audit-codebase.md` | Scan codebase for pattern redundancy and duplication |
+| `*scan` | `ds-scan-artifact.md` | Quick artifact scan for DS compliance |
+| `*shock-report` | `ds-generate-shock-report.md` | Visual HTML report for stakeholders |
+| `*calculate-roi` | `ds-calculate-roi.md` | ROI calculation for DS investment |
+| `*ds-health` | `ds-health-metrics.md` | DS health metrics dashboard |
+| `*bundle-audit` | `bundle-audit.md` | Bundle size analysis per component |
+| `*dead-code` | `dead-code-detection.md` | Find unused components and tokens |
+| `*token-usage` | `token-usage-analytics.md` | Token adoption analytics |
+| `*design-compare` | `design-compare.md` | Compare design reference vs code |
+| `*validate-tokens` | `validate-design-fidelity.md` | Validate token fidelity against spec |
+
+### Build & Compose
+
+| Task | File | Description |
+|------|------|-------------|
+| `*build` | `ds-build-component.md` | Build production-ready React component (with MCP Discovery) |
+| `*compose` | `ds-compose-molecule.md` | Compose molecule from existing atoms |
+| `*extend` | `ds-extend-pattern.md` | Extend existing pattern with variants |
+| `*rebuild` | `ds-rebuild-artifact.md` | Rebuild artifact from scratch |
+| `*setup` | `ds-setup-design-system.md` | Bootstrap new design system |
+| `*bootstrap-shadcn` | `bootstrap-shadcn-library.md` | Setup shadcn/ui component library |
+
+### Tokens & Theming
+
+| Task | File | Description |
+|------|------|-------------|
+| `*tokenize` | `ds-extract-tokens.md` | Extract design tokens to YAML/JSON/CSS |
+| `*token-w3c` | `ds-token-w3c-extract.md` | W3C DTCG v1.0 token extraction (Display P3) |
+| `*token-modes` | `ds-token-modes.md` | Token modes (light/dark/compact) |
+| `*export-dtcg` | `export-design-tokens-dtcg.md` | Export tokens in DTCG format |
+| `*theme-multi` | `ds-theme-multi-brand.md` | Multi-brand theming architecture |
+| `*contrast-matrix` | `contrast-matrix.md` | Color contrast matrix (WCAG + APCA + Display P3) |
+
+### Accessibility
+
+| Task | File | Description |
+|------|------|-------------|
+| `*a11y-audit` | `a11y-audit.md` | WCAG 2.2 accessibility audit |
+| `*aria-audit` | `aria-audit.md` | ARIA patterns and roles audit |
+| `*focus-order` | `focus-order-audit.md` | Focus order and keyboard navigation |
+| `*eaa-audit` | `ds-eaa-audit.md` | European Accessibility Act (EN 301 549) |
+
+### Refactoring
+
+| Task | File | Description |
+|------|------|-------------|
+| `*refactor-plan` | `atomic-refactor-plan.md` | Analyze codebase for refactoring candidates |
+| `*refactor-execute` | `atomic-refactor-execute.md` | Execute atomic decomposition |
+| `*consolidate` | `ds-consolidate-patterns.md` | Consolidate duplicate patterns |
+| `*migrate` | `ds-generate-migration-strategy.md` | Generate migration strategy |
+| `*tailwind-upgrade` | `tailwind-upgrade.md` | Tailwind CSS version upgrade |
+| `*audit-tailwind` | `audit-tailwind-config.md` | Audit Tailwind config for DS alignment |
+
+### Documentation & Reports
+
+| Task | File | Description |
+|------|------|-------------|
+| `*document` | `ds-generate-documentation.md` | Generate DS documentation |
+| `*create-doc` | `create-doc.md` | Create specific doc page |
+
+### Advanced Workflows
+
+| Task | File | Description |
+|------|------|-------------|
+| `*agentic-audit` | `ds-agentic-audit.md` | Evaluate DS machine-readability for AI agents |
+| `*agentic-setup` | `ds-agentic-setup.md` | Setup agentic DS infrastructure |
+| `*fluent-audit` | `ds-fluent-audit.md` | Audit against Microsoft Fluent 2 |
+| `*fluent-build` | `ds-fluent-build.md` | Build Fluent 2 components |
+| `*motion-audit` | `ds-motion-audit.md` | Animation tokens + prefers-reduced-motion |
+| `*visual-test` | `ds-visual-regression.md` | Visual regression testing setup |
+| `*multi-framework` | `ds-multi-framework.md` | Web Components cross-framework strategy |
+| `*figma-pipeline` | `ds-figma-pipeline.md` | Figma-to-code pipeline via MCP |
+| `*ds-govern` | `ds-governance.md` | DS governance model |
+| `*designops` | `ds-designops.md` | DesignOps team operations |
+| `*perf-budget` | `ds-perf-budget.md` | Performance budgets por nível atômico |
+| `*reading-audit` | `audit-reading-experience.md` | Typography and reading experience |
+| `*integrate` | `ds-integrate-squad.md` | Integrate DS into existing project |
+| `*execute-checklist` | `execute-checklist.md` | Execute validation checklist |
+
+---
+
+## 11 Templates
+
+Output templates used by tasks to generate standardized reports and artifacts:
+
+| Template | Purpose |
+|----------|---------|
+| `ds-tokens-schema-tmpl.yaml` | Token schema definition |
+| `tokens-schema-tmpl.yaml` | Token output format |
+| `ds-state-persistence-tmpl.yaml` | Agent state persistence |
+| `state-persistence-tmpl.yaml` | State tracking |
+| `ds-health-report-tmpl.md` | Health metrics report |
+| `ds-migration-strategy-tmpl.md` | Migration strategy document |
+| `migration-strategy-tmpl.md` | Migration plan output |
+| `ds-artifact-analysis.md` | Artifact scan results |
+| `component-visual-spec-tmpl.md` | Visual spec for components |
+| `design-fidelity-report-tmpl.md` | Fidelity comparison report |
+| `reading-design-tokens.css` | Reading-optimized CSS tokens |
+
+## 7 Checklists
+
+Validation checklists used during audits and quality gates:
+
+| Checklist | Purpose |
+|-----------|---------|
+| `ds-pattern-audit-checklist.md` | Pattern redundancy audit |
+| `ds-component-quality-checklist.md` | Component quality gate |
+| `ds-accessibility-wcag-checklist.md` | WCAG 2.2 compliance (updated) |
+| `ds-migration-readiness-checklist.md` | Migration readiness |
+| `atomic-refactor-checklist.md` | Atomic decomposition validation |
+| `design-fidelity-checklist.md` | Design-to-code fidelity |
+| `reading-accessibility-checklist.md` | Reading UX accessibility |
+
+## 15 Data Files
+
+Reference knowledge embedded in the agent:
+
+| Data File | Domain |
+|-----------|--------|
+| `atomic-design-principles.md` | Atomic Design methodology (5 stages) |
+| `design-token-best-practices.md` | Token naming, structure, governance |
+| `design-tokens-spec.yaml` | Token specification schema |
+| `w3c-dtcg-spec-reference.md` | W3C Design Tokens Community Group spec |
+| `wcag-compliance-guide.md` | WCAG 2.2 requirements |
+| `eaa-en301549-checklist.md` | European Accessibility Act (EN 301 549) |
+| `consolidation-algorithms.md` | Pattern consolidation algorithms |
+| `atomic-refactor-rules.md` | Refactoring rules and constraints |
+| `integration-patterns.md` | DS integration patterns |
+| `ds-reference-architectures.md` | Reference architectures for DS |
+| `agentic-ds-principles.md` | AI-ready design system principles |
+| `fluent2-design-principles.md` | Microsoft Fluent 2 design language |
+| `motion-tokens-guide.md` | Motion/animation token guide |
+| `roi-calculation-guide.md` | ROI formulas and benchmarks |
+| `high-retention-reading-guide.md` | Typography for readability (18 rules) |
+
+---
 
 ## Expert Routing (9 Experts)
 
@@ -75,26 +232,7 @@ Consult specialists via `*ask {expert} "{question}"`:
 | **Dieter Rams** | Tier 2 | Quality reduction (10 Principles) | `*quality-gate`, `*reduce` |
 | **Massimo Vignelli** | Tier 2 | Token discipline, constraints | `*constrain`, `*token-discipline` |
 
-## Key Commands
-
-| Command | Description |
-|---------|-------------|
-| `*audit {path}` | Scan codebase for pattern redundancy |
-| `*build {component}` | Build production-ready React component |
-| `*compose {molecule}` | Compose molecule from existing atoms |
-| `*tokenize` | Extract design tokens to YAML/JSON/CSS |
-| `*shock-report` | Visual HTML report for stakeholders |
-| `*calculate-roi` | ROI calculation for DS investment |
-| `*a11y-audit {path}` | WCAG 2.2 accessibility audit |
-| `*contrast-matrix {path}` | Color contrast matrix (WCAG + APCA) |
-| `*ds-health` | DS health metrics dashboard |
-| `*refactor-plan` | Analyze codebase for refactoring candidates |
-| `*agentic-audit {path}` | Evaluate DS machine-readability for AI |
-| `*ask {expert} "{q}"` | Consult specialist expert |
-| `*yolo` | Toggle parallel execution mode |
-| `*perf-budget` | Performance budgets por nível atômico |
-| `*eaa-audit` | European Accessibility Act audit (EN 301 549) |
-| `*help` | Full command list (52 commands) |
+---
 
 ## DNA Architecture
 
@@ -117,6 +255,8 @@ All heuristics use the `BF_` prefix:
 | Veto Rules | BF_VT_001 → 013 | 13 |
 | Instant Detection | BF_ID_001 → 005 | 5 |
 | Blind Spots | BF_BS_001 → 008 | 8 |
+
+---
 
 ## Version
 

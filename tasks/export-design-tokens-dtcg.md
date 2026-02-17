@@ -44,6 +44,8 @@ Produce W3C Design Tokens (DTCG v1.0.0 stable) exports from the canonical YAML t
 4. **Validate**
    - `dtcg validate tokens.dtcg.json`
    - Lint OKLCH values (ensure `oklch()` format, fallback to hex flagged)
+   - Validate Display P3 values in `$extensions.p3_value` (ensure `color(display-p3 ...)` format)
+   - Flag tokens missing P3 fallback as warnings
    - Confirm references resolve (no missing paths)
 
 5. **Document & Publish**
@@ -64,6 +66,7 @@ Produce W3C Design Tokens (DTCG v1.0.0 stable) exports from the canonical YAML t
 - **Token reference resolution breaks due to circular dependencies:** Detect cycle path, break loop by inlining deepest reference, log resolution strategy and affected tokens in validation report
 - **Platform export tool crashes on unsupported token types:** Skip incompatible token types for that platform, document exclusions in platform-specific README, generate warning manifest listing unsupported features
 - **OKLCH color conversion produces out-of-gamut RGB values:** Clamp to sRGB gamut with perceptual lightness preservation, append fallback hex values as `$extensions`, flag colors requiring manual adjustment
+- **Display P3 values missing for color tokens:** Generate P3 equivalents from OKLCH values, store in `$extensions.p3_value`, log count of auto-generated P3 values in validation report
 
 ## Success Criteria
 

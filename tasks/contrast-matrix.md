@@ -54,7 +54,9 @@ const colorSources = [
   // HSL/HSLA
   'hsl(', 'hsla(',
   // OKLCH
-  'oklch('
+  'oklch(',
+  // Display P3
+  'color(display-p3'
 ];
 
 interface ExtractedColor {
@@ -64,6 +66,7 @@ interface ExtractedColor {
   usage: 'foreground' | 'background' | 'border' | 'unknown';
   files: Array<{ path: string; line: number }>;
   theme?: 'light' | 'dark' | 'sepia';
+  p3Value?: string;        // Display P3 equivalent
 }
 ```
 

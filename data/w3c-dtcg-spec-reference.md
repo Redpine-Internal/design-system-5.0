@@ -29,7 +29,7 @@ Every token has three required properties:
 
 | Type | Example $value | Notes |
 |------|---------------|-------|
-| `color` | `"#0066CC"` or `"oklch(0.65 0.15 250)"` | Hex, RGB, HSL, OKLCH |
+| `color` | `"#0066CC"` or `"oklch(0.65 0.15 250)"` | Hex, RGB, HSL, OKLCH, Display P3 |
 | `dimension` | `"16px"` or `"1rem"` | Spacing, sizing, radius |
 | `fontFamily` | `"Inter, sans-serif"` | Font stack |
 | `fontWeight` | `400` or `"bold"` | Numeric or named |
@@ -128,6 +128,47 @@ This creates semantic layers: primitive → semantic → component tokens.
 | **Terrazzo** | CLI token compiler | Full v1.0 |
 | **Figma Variables** | Design tool native tokens | Partial (export via plugin) |
 | **Penpot** | Open-source design tool | Full v1.0 |
+
+---
+
+## Wide-Gamut Color Support (Display P3)
+
+Modern displays support colors beyond sRGB. Use Display P3 for maximum fidelity:
+
+```json
+{
+  "color": {
+    "brand-vibrant": {
+      "$value": "oklch(0.65 0.25 30)",
+      "$type": "color",
+      "$description": "Vibrant brand red — exceeds sRGB gamut",
+      "$extensions": {
+        "p3_value": "color(display-p3 0.96 0.27 0.22)",
+        "srgb_fallback": "#e8432a"
+      }
+    }
+  }
+}
+```
+
+**CSS Progressive Enhancement:**
+```css
+:root {
+  --color-brand-vibrant: #e8432a; /* sRGB fallback */
+}
+@supports (color: color(display-p3 0 0 0)) {
+  :root {
+    --color-brand-vibrant: color(display-p3 0.96 0.27 0.22);
+  }
+}
+```
+
+**Key Rules:**
+- Always provide sRGB fallback for every P3 color
+- Use `@supports` for progressive enhancement
+- OKLCH remains the canonical `$value` format (perceptually uniform)
+- P3 stored in `$extensions.p3_value` for tooling consumption
+- Not all OKLCH colors are in-gamut for P3 — validate and clamp when needed
 
 ---
 

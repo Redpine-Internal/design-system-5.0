@@ -48,19 +48,27 @@ This task uses interactive elicitation to configure component.
 
 ### Steps
 
-1. **Validate Prerequisites**
+1. **MCP Component Discovery (if Storybook MCP enabled)**
+   - Query Storybook MCP endpoint for components matching the requested name or semantic purpose
+   - Search existing component library for similar components (name similarity, prop overlap, visual function)
+   - If match found with >80% similarity: present existing component to user, suggest reuse or extension via `*extend-pattern` instead of building new
+   - If partial match (40-80%): inform user of similar components, ask whether to build new or compose from existing
+   - If no match (<40%): proceed to build
+   - Check: MCP query completed (or skipped if MCP not configured) — log "Discovery: {N} similar components found" or "Discovery: MCP not configured, skipping"
+
+2. **Validate Prerequisites**
    - Run `test -f tokens.yaml` (or tokens.json) to confirm tokens file exists; abort with "Tokens not found — run *setup first" if missing
    - Search for existing `{Component}.tsx` in the design-system directory; if found, prompt user to confirm overwrite
    - Validate component name matches PascalCase regex `/^[A-Z][a-zA-Z]+$/`
    - Check: tokens file exists AND component name is PascalCase (`/^[A-Z][a-zA-Z]+$/`) — abort if either fails
 
-2. **Load Token References**
+3. **Load Token References**
    - Identify which tokens this component needs
    - Validate token availability
    - Generate token import statements
    - Check: grep each required token name in tokens file — list missing tokens if any
 
-3. **Generate Component File**
+4. **Generate Component File**
    - Create TypeScript React component
    - Add prop type definitions (strict typing)
    - Implement variants, sizes, states
@@ -68,7 +76,7 @@ This task uses interactive elicitation to configure component.
    - Use semantic HTML elements
    - Check: `tsc --noEmit {component}.tsx` returns exit code 0 — fix type errors before proceeding
 
-4. **Generate Component Styles**
+5. **Generate Component Styles**
    - Create CSS Module file ({Component}.module.css)
    - Use CSS custom properties from tokens
    - Implement all variants and states
@@ -76,7 +84,7 @@ This task uses interactive elicitation to configure component.
    - Zero hardcoded values (all from tokens)
    - Check: zero hardcoded color/spacing values in CSS module — grep for `#[0-9a-f]` and `[0-9]+px` (excluding 0px)
 
-5. **Generate Unit Tests**
+6. **Generate Unit Tests**
    - Create test file ({Component}.test.tsx)
    - Test all variants render correctly
    - Test all sizes work
@@ -85,21 +93,21 @@ This task uses interactive elicitation to configure component.
    - Aim for >80% coverage
    - Check: `npm test -- --coverage {Component}.test.tsx` exits 0 AND coverage >= 80% — fix failing tests before proceeding
 
-6. **Generate Storybook Stories (Optional)**
+7. **Generate Storybook Stories (Optional)**
    - If Storybook enabled, create {Component}.stories.tsx
    - Story for each variant
    - Story for each size
    - Interactive controls for props
    - Check: stories file exports at least one named story AND `tsc --noEmit {Component}.stories.tsx` exits 0
 
-7. **Run Accessibility Checks**
+8. **Run Accessibility Checks**
    - Confirm all interactive elements have `aria-label` or visible text by searching component source for button/a/input tags without labels
    - Measure color contrast ratio for all foreground/background token pairs and confirm each >= 4.5:1 (use WCAG contrast formula)
    - Tab through all interactive elements in render order and confirm focus moves logically without traps
    - Add `:focus-visible` outline styles using `var(--color-focus)` token
    - Check: all interactive elements have ARIA labels AND color contrast ratio >= 4.5:1 AND focus-visible styles present
 
-8. **Generate Component Documentation**
+9. **Generate Component Documentation**
    - Create {Component}.md in docs/
    - Document props and types
    - Show usage examples
@@ -107,13 +115,13 @@ This task uses interactive elicitation to configure component.
    - Include accessibility notes
    - Check: {Component}.md exists AND contains sections: Props, Usage Examples, Variants, Accessibility
 
-9. **Update Component Index**
+10. **Update Component Index**
    - Add to design-system/index.ts
    - Export component for easy import
    - Update barrel exports
    - Check: `grep -q "{Component}" index.ts` — abort with "{Component} not found in index.ts exports"
 
-10. **Update State File**
+11. **Update State File**
     - Add component to patterns_built in .state.yaml
     - Record atomic level, variants, test coverage
     - Increment component count

@@ -27,13 +27,13 @@ Scan codebase for design values (colors, spacing, typography, shadows, etc.), no
 1. **Gather Parameters**
    - Scan path for styles
    - Existing token files (if any) to migrate
-   - Color format preference (hex, OKLCH, both)
+   - Color format preference (hex, OKLCH, Display P3, all)
    - Output directory
 
 ### Steps
 
 1. **Scan Design Values**
-   - Extract colors from CSS/JS (hex, rgb, hsl, oklch, named colors)
+   - Extract colors from CSS/JS (hex, rgb, hsl, oklch, color(display-p3 ...), named colors)
    - Extract spacing values (px, rem, em)
    - Extract typography (font families, sizes, weights, line heights)
    - Extract shadows (box-shadow, drop-shadow)
@@ -73,10 +73,18 @@ Scan codebase for design values (colors, spacing, typography, shadows, etc.), no
    - Update .state.yaml
    - Check: `test -f tokens.json` AND JSON parses without errors AND file size > 0 — abort with "tokens.json generation failed: {error}"
 
+6. **Generate Wide-Gamut Fallbacks**
+   - For each color token, calculate Display P3 equivalent using `color(display-p3 r g b)` syntax
+   - Store P3 value in `$extensions.p3_value` alongside primary OKLCH value
+   - Generate CSS with `@supports (color: color(display-p3 0 0 0))` progressive enhancement
+   - Add sRGB hex fallback for browsers without wide-gamut support
+   - Check: every color token has both `$value` (oklch/hex) AND `$extensions.p3_value` — warn for colors outside P3 gamut
+
 ## Output
 
 - `tokens.json` — W3C DTCG v1.0 compliant token file
 - `tokens.css` — CSS custom properties export
+- `tokens-p3.css` — Wide-gamut CSS with Display P3 colors and sRGB fallbacks
 - `tokens-tailwind.js` — Tailwind config export
 - `migration-map.md` — Old values → token references
 - `.state.yaml` updated with token extraction results
@@ -87,6 +95,7 @@ Scan codebase for design values (colors, spacing, typography, shadows, etc.), no
 - **Conflicting color formats:** If same semantic color exists in multiple formats (hex, OKLCH, rgb) with different values, prompt user to choose canonical format or average values, then log conflict resolution in migration-map.md
 - **Unresolvable alias reference:** If token alias points to non-existent token (e.g., {color.primary} but color.primary undefined), exit with error "Broken alias: '{alias}' references undefined token. Fix source tokens before export."
 - **DTCG validation failure:** If tokens.json fails schema validation (invalid $type, malformed $value, or unsupported property), list all violations with line numbers and exit with "DTCG spec violations detected: {count} errors. Review data/w3c-dtcg-spec-reference.md for format requirements."
+- **Color outside Display P3 gamut:** If OKLCH color maps to out-of-gamut P3 values, clamp to nearest in-gamut P3 color with perceptual intent, log warning "Color {name} clamped from {original} to {clamped} for P3 gamut", and keep original OKLCH as primary $value.
 
 ## Success Criteria
 

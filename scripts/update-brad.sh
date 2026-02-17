@@ -7,7 +7,6 @@ set -euo pipefail
 
 REPO="Redpine-Internal/design-system-5.0"
 BRANCH="main"
-SOURCE_PATH="outputs/minds/brad-frost"
 DEST="${1:-.brad-frost}"
 
 # Cores
@@ -34,7 +33,7 @@ fi
 
 # Buscar versão remota
 echo -e "\n${YELLOW}Verificando versão remota...${NC}"
-REMOTE_VERSION=$(gh api "repos/$REPO/contents/$SOURCE_PATH/config.yaml?ref=$BRANCH" \
+REMOTE_VERSION=$(gh api "repos/$REPO/contents/config.yaml?ref=$BRANCH" \
   --jq '.content' | base64 -d | grep '^version:' | awk '{print $2}')
 echo -e "  Remota: ${GREEN}v${REMOTE_VERSION}${NC}"
 
@@ -56,26 +55,27 @@ fi
 # Criar diretório destino
 mkdir -p "$DEST"
 
-# Baixar via gh api (tarball) e extrair apenas brad-frost
+# Baixar via gh api (tarball)
 TMPDIR=$(mktemp -d)
 trap "rm -rf $TMPDIR" EXIT
 
 echo -e "${YELLOW}Baixando arquivos...${NC}"
 gh api "repos/$REPO/tarball/$BRANCH" > "$TMPDIR/repo.tar.gz"
 
-# Extrair apenas o path do brad-frost
+# Extrair
 cd "$TMPDIR"
 tar xzf repo.tar.gz
 EXTRACTED=$(ls -d Redpine-Internal-design-system-5.0-* 2>/dev/null || ls -d */ | head -1)
 
-if [ ! -d "$EXTRACTED/$SOURCE_PATH" ]; then
-  echo "Erro: Caminho $SOURCE_PATH não encontrado no repositório."
-  exit 1
-fi
-
-# Copiar para destino
+# Copiar apenas as pastas do agent (excluir .git, scripts, outputs, etc.)
 cd - > /dev/null
-rsync -a --delete "$TMPDIR/$EXTRACTED/$SOURCE_PATH/" "$DEST/"
+rsync -a --delete \
+  --exclude='.git/' \
+  --exclude='.gitignore' \
+  --exclude='scripts/' \
+  --exclude='outputs/' \
+  --exclude='Design-System-*.zip' \
+  "$TMPDIR/$EXTRACTED/" "$DEST/"
 
 # Contar arquivos
 TOTAL=$(find "$DEST" -type f | wc -l | tr -d ' ')

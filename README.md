@@ -1,7 +1,7 @@
-# Brad Frost — Design System Architect v5.2.0
+# Brad Frost — Design System Architect v5.2.1
 
 > Agente IA especialista em Design Systems baseado na metodologia Atomic Design de Brad Frost.
-> DNA extraido de 22 fontes publicadas. 9 especialistas consultaveis. 52 comandos. 46 tasks executaveis.
+> DNA extraido de 22 fontes publicadas. 9 especialistas consultaveis. 52 comandos. 48 tasks executaveis.
 
 ---
 
@@ -17,10 +17,10 @@
 - [Arquitetura DNA](#arquitetura-dna)
 - [Sistema de Pattern IDs](#sistema-de-pattern-ids)
 - [Estrutura de Diretorios](#estrutura-de-diretorios)
-- [Tasks Disponiveis (46)](#tasks-disponiveis-46)
+- [Tasks Disponiveis (48)](#tasks-disponiveis-48)
 - [Templates (11)](#templates-11)
 - [Checklists (7)](#checklists-7)
-- [Dados de Referencia (14)](#dados-de-referencia-14)
+- [Dados de Referencia (15)](#dados-de-referencia-15)
 - [Scores de Validacao](#scores-de-validacao)
 - [Historico de Versoes](#historico-de-versoes)
 - [Licenca](#licenca)
@@ -36,7 +36,7 @@ Diferente de um chatbot generico, este agente possui:
 - **Voice DNA** — Vocabulario, tom, expressoes e metaforas extraidos das obras publicadas de Brad Frost
 - **Thinking DNA** — Frameworks mentais, heuristicas de decisao, regras de veto e padroes de reconhecimento baseados no Atomic Design
 - **Expert Routing** — 9 especialistas consultaveis via comando `*ask`, cada um com DNA proprio extraido de fontes reais
-- **46 Tasks Executaveis** — Workflows completos para auditoria, construcao, migracao, acessibilidade e governanca de design systems
+- **48 Tasks Executaveis** — Workflows completos para auditoria, construcao, migracao, acessibilidade e governanca de design systems
 - **Failure Handling** — 100% das tasks possuem tratamento de falhas com cenarios domain-specific
 
 O agente funciona dentro do ecossistema **Synkra AIOS** e pode ser ativado em IDEs como Claude Code, Cursor e Gemini CLI.
@@ -72,7 +72,19 @@ Se voce ja tem o Synkra AIOS instalado:
 @design-system
 ```
 
-### Opcao 2: Copia Direta
+### Opcao 2: Script de Atualizacao
+
+```bash
+# Instalar ou atualizar para a ultima versao
+bash scripts/update-brad.sh
+
+# Instalar num caminho especifico
+bash scripts/update-brad.sh ./meu-projeto/.claude/agents/brad-frost
+```
+
+O script compara a versao local com a remota e so baixa se houver atualizacao.
+
+### Opcao 3: Copia Direta
 
 Copie a pasta para dentro do seu projeto:
 
@@ -80,7 +92,7 @@ Copie a pasta para dentro do seu projeto:
 cp -r brad-frost/ seu-projeto/.aios-core/squads/brad-frost/
 ```
 
-### Opcao 3: Git Submodule
+### Opcao 4: Git Submodule
 
 ```bash
 git submodule add git@github.com:Redpine-Internal/design-system-5.0.git squads/brad-frost
@@ -221,9 +233,23 @@ Pipeline completo para auditar e migrar codebases existentes:
 ### W3C Design Tokens (DTCG v1.0)
 
 ```
-*token-w3c            → Extracao no formato W3C DTCG stable
+*token-w3c            → Extracao no formato W3C DTCG stable (Display P3)
     ↓
 *token-modes          → Configuracao de modos (light/dark/etc.)
+    ↓
+*export-dtcg          → Exportar tokens no formato DTCG
+```
+
+### Performance Budgets
+
+```
+*perf-budget          → Budgets por nivel atomico (Atom 5KB, Molecule 15KB, Organism 40KB)
+```
+
+### European Accessibility Act (EAA)
+
+```
+*eaa-audit            → Auditoria EN 301 549 (Sections 9-13, alem do WCAG)
 ```
 
 ---
@@ -283,9 +309,10 @@ Pipeline completo para auditar e migrar codebases existentes:
 | Comando | Descricao |
 |---------|-----------|
 | `*a11y-audit {path}` | Auditoria WCAG 2.2 completa |
-| `*contrast-matrix {path}` | Matriz de contraste (WCAG + APCA) |
+| `*contrast-matrix {path}` | Matriz de contraste (WCAG + APCA + Display P3) |
 | `*focus-order` | Auditoria de ordem de foco |
 | `*aria-audit` | Auditoria de atributos ARIA |
+| `*eaa-audit` | European Accessibility Act (EN 301 549) |
 
 ### Documentacao e Governanca
 
@@ -331,6 +358,7 @@ Pipeline completo para auditar e migrar codebases existentes:
 | `*token-discipline` | Diagnostico de disciplina de tokens |
 | `*motion-audit` | Auditoria de motion/animacao |
 | `*visual-test` | Testes de regressao visual |
+| `*perf-budget` | Performance budgets por nivel atomico |
 
 ### Utilitarios
 
@@ -445,7 +473,7 @@ brad-frost/
 │
 ├── agents/                          # Agentes auxiliares (especialistas)
 │
-├── tasks/                           # 46 tasks executaveis
+├── tasks/                           # 48 tasks executaveis
 │   ├── a11y-audit.md
 │   ├── aria-audit.md
 │   ├── atomic-refactor-execute.md
@@ -466,6 +494,7 @@ brad-frost/
 │   ├── ds-compose-molecule.md
 │   ├── ds-consolidate-patterns.md
 │   ├── ds-designops.md
+│   ├── ds-eaa-audit.md
 │   ├── ds-extend-pattern.md
 │   ├── ds-extract-tokens.md
 │   ├── ds-figma-pipeline.md
@@ -479,6 +508,7 @@ brad-frost/
 │   ├── ds-integrate-squad.md
 │   ├── ds-motion-audit.md
 │   ├── ds-multi-framework.md
+│   ├── ds-perf-budget.md
 │   ├── ds-rebuild-artifact.md
 │   ├── ds-scan-artifact.md
 │   ├── ds-setup-design-system.md
@@ -515,7 +545,7 @@ brad-frost/
 │   ├── ds-pattern-audit-checklist.md
 │   └── reading-accessibility-checklist.md
 │
-├── data/                            # 14 arquivos de referencia
+├── data/                            # 15 arquivos de referencia
 │   ├── agentic-ds-principles.md
 │   ├── atomic-design-principles.md
 │   ├── atomic-refactor-rules.md
@@ -523,6 +553,7 @@ brad-frost/
 │   ├── design-token-best-practices.md
 │   ├── design-tokens-spec.yaml
 │   ├── ds-reference-architectures.md
+│   ├── eaa-en301549-checklist.md
 │   ├── fluent2-design-principles.md
 │   ├── high-retention-reading-guide.md
 │   ├── integration-patterns.md
@@ -535,13 +566,15 @@ brad-frost/
 ├── dna/                             # Arquivos DNA extraidos
 ├── config.yaml                      # Configuracao do squad
 ├── README.md                        # Este arquivo
-├── CHANGELOG.md                     # Historico de versoes (v3.0 → v5.2.0)
+├── scripts/
+│   └── update-brad.sh               # Script de atualizacao
+├── CHANGELOG.md                     # Historico de versoes (v3.0 → v5.2.1)
 └── ARCHITECTURE.md                  # Arquitetura do sistema
 ```
 
 ---
 
-## Tasks Disponiveis (46)
+## Tasks Disponiveis (48)
 
 Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditions, Steps, Post-conditions, Success Criteria e Failure Handling.
 
@@ -549,13 +582,14 @@ Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditio
 
 | Categoria | Tasks | Quantidade |
 |-----------|-------|------------|
-| Auditoria | a11y-audit, aria-audit, audit-reading-experience, audit-tailwind-config, bundle-audit, dead-code-detection, ds-agentic-audit, ds-audit-codebase, ds-fluent-audit, ds-health-metrics, ds-motion-audit, ds-scan-artifact, ds-visual-regression, focus-order-audit, token-usage-analytics | 15 |
+| Auditoria | a11y-audit, aria-audit, audit-reading-experience, audit-tailwind-config, bundle-audit, dead-code-detection, ds-agentic-audit, ds-audit-codebase, ds-eaa-audit, ds-fluent-audit, ds-health-metrics, ds-motion-audit, ds-scan-artifact, ds-visual-regression, focus-order-audit, token-usage-analytics | 16 |
 | Construcao | bootstrap-shadcn-library, ds-build-component, ds-compose-molecule, ds-extend-pattern, ds-fluent-build, ds-rebuild-artifact, ds-setup-design-system | 7 |
 | Tokens | ds-extract-tokens, ds-token-modes, ds-token-w3c-extract, ds-theme-multi-brand, export-design-tokens-dtcg | 5 |
 | Migracao | atomic-refactor-execute, atomic-refactor-plan, ds-consolidate-patterns, ds-generate-migration-strategy, tailwind-upgrade | 5 |
 | Documentacao | create-doc, ds-generate-documentation, ds-generate-shock-report, ds-calculate-roi | 4 |
 | Integracao | ds-figma-pipeline, ds-integrate-squad, ds-multi-framework | 3 |
 | Governanca | ds-designops, ds-governance | 2 |
+| Performance | ds-perf-budget | 1 |
 | Agentic | ds-agentic-setup | 1 |
 | Validacao | contrast-matrix, design-compare, execute-checklist, validate-design-fidelity | 4 |
 
@@ -593,7 +627,7 @@ Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditio
 
 ---
 
-## Dados de Referencia (14)
+## Dados de Referencia (15)
 
 | Arquivo | Conteudo |
 |---------|----------|
@@ -611,6 +645,7 @@ Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditio
 | `roi-calculation-guide.md` | Guia de calculo de ROI |
 | `w3c-dtcg-spec-reference.md` | Referencia da spec W3C DTCG v1.0 |
 | `wcag-compliance-guide.md` | Guia de conformidade WCAG |
+| `eaa-en301549-checklist.md` | Checklist European Accessibility Act (EN 301 549) |
 
 ---
 
@@ -622,12 +657,12 @@ Cada task segue uma estrutura padrao com: Purpose, Inputs, Outputs, Pre-conditio
 | **Validate Squad** | 10.0/10 EXCELLENT | Validacao completa (Phases 0-6) |
 | **Fidelity Score** | 100% ELITE (40/40) | Todos os checkpoints de fidelidade atendidos |
 | **Smoke Test Routing** | PASS (9/9, 19/19) | 9 experts, 19 triggers — todos funcionando |
-| **Failure Handling** | 46/46 (100%) | Todas as tasks com tratamento de falhas |
+| **Failure Handling** | 48/48 (100%) | Todas as tasks com tratamento de falhas |
 
 ### Progressao de Score
 
 ```
-v3.0: 5.51 → v4.0: 7.95 → v5.0: 9.26 → v5.0.1: 9.84 → v5.0.2: 9.92 → v5.2.0: 10.0
+v3.0: 5.51 → v4.0: 7.95 → v5.0: 9.26 → v5.0.1: 9.84 → v5.0.2: 9.92 → v5.2.1: 10.0
 ```
 
 ---
@@ -636,6 +671,7 @@ v3.0: 5.51 → v4.0: 7.95 → v5.0: 9.26 → v5.0.1: 9.84 → v5.0.2: 9.92 → v
 
 | Versao | Mudancas Principais |
 |--------|---------------------|
+| **v5.2.1** | Display P3 wide-gamut, MCP Discovery, ds-perf-budget, ds-eaa-audit (EN 301 549), fix voice_dna |
 | **v5.2.0** | Dave Malouf (DesignOps) como Tier 1, 9 experts, 52 comandos, Failure Handling 100% |
 | **v5.1.0** | Dieter Rams + Massimo Vignelli (Tier 2), 7 novos vetos, 4 novos comandos |
 | **v5.0.2** | Fix contradicao a11y, 5 blind spots, 2 vetos adicionais |
@@ -660,4 +696,4 @@ MIT
 
 ---
 
-*Brad Frost Design System Agent v5.2.0 — Atomic Design | 9 Experts | 52 Commands | 46 Tasks | Score 10.0/10*
+*Brad Frost Design System Agent v5.2.1 — Atomic Design | 9 Experts | 52 Commands | 48 Tasks | Score 10.0/10*

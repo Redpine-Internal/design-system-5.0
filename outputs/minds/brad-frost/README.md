@@ -1,4 +1,4 @@
-# Brad Frost — Design System Architect
+# Brad Frost — Design System Architect v5.2.1
 
 > Expert Mind Pack for Design System workflows powered by Brad Frost's Atomic Design methodology.
 > Research-grounded DNA from 22 published sources. 9 specialist experts. 52 commands. 48 tasks.
@@ -9,7 +9,11 @@
 @design-system
 ```
 
+Aliases: `@brad`, `@brad-frost`
+
 Brad will greet you and await commands. Type `*help` to see all available commands.
+
+> **Nota:** O comando oficial de ativação é `@design-system`. Os aliases `@brad` e `@brad-frost` podem ser usados informalmente mas dependem de configuração no projeto.
 
 ## Structure
 

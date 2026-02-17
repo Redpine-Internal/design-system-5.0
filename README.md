@@ -72,17 +72,25 @@ Se voce ja tem o Synkra AIOS instalado:
 @design-system
 ```
 
-### Opcao 2: Script de Atualizacao
+### Opcao 2: Instalar/Atualizar via curl (Recomendado para outros projetos)
+
+Execute na raiz do seu projeto:
 
 ```bash
-# Instalar ou atualizar para a ultima versao
-bash scripts/update-brad.sh
+# Instalar ou atualizar para a ultima versao (cria pasta .brad-frost/)
+curl -sL https://raw.githubusercontent.com/Redpine-Internal/design-system-5.0/main/scripts/update-brad.sh | bash
 
 # Instalar num caminho especifico
-bash scripts/update-brad.sh ./meu-projeto/.claude/agents/brad-frost
+curl -sL https://raw.githubusercontent.com/Redpine-Internal/design-system-5.0/main/scripts/update-brad.sh | bash -s -- ./meu-caminho
 ```
 
 O script compara a versao local com a remota e so baixa se houver atualizacao.
+
+### Opcao 3: Script local (se ja tem o repositorio clonado)
+
+```bash
+bash scripts/update-brad.sh
+```
 
 ### Opcao 3: Copia Direta
 

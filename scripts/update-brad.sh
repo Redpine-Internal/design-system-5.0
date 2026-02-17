@@ -7,7 +7,14 @@ set -euo pipefail
 
 REPO="Redpine-Internal/design-system-5.0"
 BRANCH="main"
-DEST="${1:-.brad-frost}"
+# Detectar destino: aios-core/squads/ se existir, senão .brad-frost/
+if [ -n "${1:-}" ]; then
+  DEST="$1"
+elif [ -d "aios-core/squads" ]; then
+  DEST="aios-core/squads/brad-frost"
+else
+  DEST=".brad-frost"
+fi
 
 # Cores
 GREEN='\033[0;32m'

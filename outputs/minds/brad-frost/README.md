@@ -15,6 +15,18 @@ Brad will greet you and await commands. Type `*help` to see all available comman
 
 > **Nota:** O comando oficial de ativação é `@design-system`. Os aliases `@brad` e `@brad-frost` podem ser usados informalmente mas dependem de configuração no projeto.
 
+## Instalação / Atualização
+
+```bash
+# Instalar ou atualizar para a última versão
+bash scripts/update-brad.sh
+
+# Instalar num caminho específico
+bash scripts/update-brad.sh ./meu-projeto/.claude/agents/brad-frost
+```
+
+O script compara a versão local com a remota e só baixa se houver atualização.
+
 ## Structure
 
 ```

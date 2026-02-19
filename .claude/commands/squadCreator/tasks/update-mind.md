@@ -1,0 +1,1 @@
+/Users/fabiomarques/Projetos/melhoriadosystemdesign/squad/tasks/update-mind.md

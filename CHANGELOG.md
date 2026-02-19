@@ -1,4 +1,51 @@
-# Changelog — Brad Frost Design System Agent
+# Changelog — Brad Frost Design System Squad
+
+## v5.6.0
+- QUALITY: 18 smoke_tests across 6/6 agents (3 per agent)
+- QUALITY: 18 checkpoints + veto_conditions in 6/7 workflows
+- ADD: Formal heuristics in design-chief (4 heuristics) and dan-mall (4 heuristics)
+- ADD: signature_phrases with [SOURCE:] citations in design-chief (5) and dave-malouf (30)
+- ADD: brad-ops registered in squad.yaml + protocols section added to manifest
+- ADD: veto_conditions in 5 core tasks
+- DOCS: README agents table expanded + quick-start guide improved
+- quality_score: 8.75 → 10.0
+
+## v5.5.1
+- FIX: Added `data/components.json` placeholder to resolve metadata reference checks across tasks/workflows.
+- FIX: Added `data/technical-preferences.md` local fallback for Nano Banana context loading.
+- DOCS: Updated `README.md` counts/version notes (templates count and version range).
+- DOCS: Updated `ARCHITECTURE.md` to v5.5.0 labeling and corrected templates count.
+- VALIDATION: `dependency_check.py` now passes with 0 broken references.
+
+## v5.5.0
+- FIX: Squad now self-activates in external projects (was being ignored by Claude Code)
+- ADD: `.claude/CLAUDE.md` — auto-activation block with trigger keywords and routing matrix
+- ADD: `.claude/commands/squads/design-system.md` — portable slash command (ships in zip)
+- ADD: `install.sh` — one-command installer that wires .claude/ infrastructure into any project
+- All 3 files ship inside the zip — no external installer needed
+
+## v5.4.0
+- MAJOR: Multi-agent squad — added design-chief (orchestrator), dan-mall (adoption), dave-malouf (DesignOps), nano-banana-generator (visual)
+- MAJOR: Entry agent changed from design-system-v5 → design-chief (orchestrator-first routing)
+- ADD: protocols/ — ai-first-governance, governance-execution-boundary, handoff (3 files)
+- ADD: workflows/ — self-healing, agentic-readiness, brownfield, greenfield, audit-only, dtcg-governance, motion-quality (7 YAML)
+- ADD: squad.yaml machine-readable manifest (18KB)
+- ADD: 21 new tasks — DesignOps (maturity, metrics, scaling, triage), AI metadata, MCP server, legacy modernization
+- ADD: 4 checklists — handoff, team-health, maturity, a11y-release-gate
+- ADD: 4 templates — ai-metadata-schema, prompt-injection, agent-template, clone-mind-template
+- ADD: docs/ — audit report, research validations (brad-frost, dave-malouf)
+- Totals: 6 agents, 67 tasks, 11 checklists, 15 templates, 19 data, 7 workflows, 3 protocols (~35K lines)
+
+## v5.3.0
+- MAJOR: Ecosystem-Aware Delegation — 6-level hierarchy: Skills → MCP → BradOps → AIOS → Squads → Claude Code
+- MAJOR: BradOps created as separate executor agent (brad-ops.md, 726 lines) — Single Responsibility
+- ADD: MCP Tools layer — Context7 (library docs: Style Dictionary, Radix, Tailwind) + Playwright (visual/a11y testing)
+- ADD: Project Squads layer — dynamic discovery of project-specific squads from aios-core/squads/
+- YOLO/Supervisor mode delegated entirely to BradOps (executor manages subagents)
+- Delegation veto: audit/consolidate/tokenize/governance/voice never delegated
+- Routing protocol: 6-category classify (skill | mcp-tool | execution | aios-role | project-squad | generic)
+- Brad remains pure brain: diagnose, plan, consult experts, route to ecosystem
+- Agent file: 2583 lines (was ~2000), BradOps: 726 lines
 
 ## v5.2.0
 - Added Dave Malouf as Tier 1 expert (TIER1_DMa) — DesignOps Pioneer
